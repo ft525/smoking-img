@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::match(['post', 'delete'], '/uploading/file', 'UploadingController@file');
+Route::view('/fileUploading', 'fileUploading');
+
+/*
+Route::get('/kyo/test', 'KyoController@test');
+Route::post('/kyo/test', 'KyoController@test');
+*/
