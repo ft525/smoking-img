@@ -53,7 +53,7 @@
 					</div>
 				</div>
 
-				<input id="input-file" type="file" name="files[]" accept="image/*" style="display:none" multiple />
+				<input id="input-file" type="file" name="files[]" accept=".gif, .jpg, .jpeg, .png, .txt" style="display:none" multiple />
 			</div>
 		</div>
 
@@ -152,7 +152,7 @@
 				url: "/uploading/file",
 				dataType: "json",
 				/* Validation options */
-				acceptFileTypes: /\.(gif|jpe?g|png)$/i,
+				acceptFileTypes: /\.(gif|jpe?g|png|txt)$/i,
 				/* General Options */
 				sequentialUploads: true,
 				limitMultiFileUploads: 3,
