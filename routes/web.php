@@ -11,10 +11,13 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
+Route::view('/', 'index/index');
 
 Route::match(['post', 'delete'], '/uploading/file', 'UploadingController@file');
 Route::view('/fileUploading', 'fileUploading');
