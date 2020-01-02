@@ -22,7 +22,6 @@
 		<div class="slide-pop" ng-view></div>
 
 		<hr />
-
 		<h3>body</h3>
 		<ul>
 			<li>val: {* val *}</li>
@@ -30,11 +29,16 @@
 		</ul>
 
 		<hr />
-
 		<pre>$location.path() = {* body.$location.path() *}</pre>
 		<pre>$route.current.templateUrl = {* body.$route.current.templateUrl *}</pre>
 		<pre>$route.current.params = {* body.$route.current.params *}</pre>
 		<pre>$routeParams = {* body.$routeParams *}</pre>
+
+		<hr />
+		<h3>Event</h3>
+		<button ng-click="body.emitEvent('myEvent', 'Body')">Emit body event</button>
+		<button ng-click="body.broadcastEvent('myEvent', 'Body')">Broadcast body event</button>
+		<pre>Count: {* body.count *}, Who: {* body.who *}</pre>
 
 
 

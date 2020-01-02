@@ -73,6 +73,24 @@
 		function isActive(path) {
 			return path === $location.path();
 		}
+
+		// 事件
+		vm.count = 0;
+		vm.emitEvent = emitEvent;
+		vm.broadcastEvent = broadcastEvent;
+
+		$scope.$on("myEvent", function (event, caller) {
+			vm.count++;
+			vm.who = caller;
+		});
+
+		function emitEvent(event, caller) {
+			$scope.$emit(event, caller);
+		}
+
+		function broadcastEvent(event, caller) {
+			$scope.$broadcast(event, caller);
+		}
 	};
 
 	app.controller("IndexCtrl", IndexCtrl);
@@ -85,6 +103,23 @@
 		vm.val = "IndexCtrl is running. (vm)";
 		$scope.val = "IndexCtrl is running. ($scope)";
 
+		// 事件
+		vm.count = 0;
+		vm.emitEvent = emitEvent;
+		vm.broadcastEvent = broadcastEvent;
+
+		$scope.$on("myEvent", function (event, caller) {
+			vm.count++;
+			vm.who = caller;
+		});
+
+		function emitEvent(event, caller) {
+			$scope.$emit(event, caller);
+		}
+
+		function broadcastEvent(event, caller) {
+			$scope.$broadcast(event, caller);
+		}
 	};
 
 	app.controller("ThreeDCtrl", ThreeDCtrl);
@@ -97,6 +132,23 @@
 		vm.val = "ThreeDCtrl is running. (vm)";
 		$scope.val = "ThreeDCtrl is running. ($scope)";
 
+		// 事件
+		vm.count = 0;
+		vm.emitEvent = emitEvent;
+		vm.broadcastEvent = broadcastEvent;
+
+		$scope.$on("myEvent", function (event, caller) {
+			vm.count++;
+			vm.who = caller;
+		});
+
+		function emitEvent(event, caller) {
+			$scope.$emit(event, caller);
+		}
+
+		function broadcastEvent(event, caller) {
+			$scope.$broadcast(event, caller);
+		}
 	};
 
 	app.controller("FourDCtrl", FourDCtrl);
@@ -109,6 +161,23 @@
 		vm.val = "FourDCtrl is running. (vm)";
 		$scope.val = "FourDCtrl is running. ($scope)";
 
+		// 事件
+		vm.count = 0;
+		vm.emitEvent = emitEvent;
+		vm.broadcastEvent = broadcastEvent;
+
+		$scope.$on("myEvent", function (event, caller) {
+			vm.count++;
+			vm.who = caller;
+		});
+
+		function emitEvent(event, caller) {
+			$scope.$emit(event, caller);
+		}
+
+		function broadcastEvent(event, caller) {
+			$scope.$broadcast(event, caller);
+		}
 	};
 	/* Angular - End */
 })();

@@ -3,3 +3,9 @@
 	<li>val: {* val *}</li>
 	<li>_3d.val: {* _3d.val *}</li>
 </ul>
+
+<hr />
+<h3>Event</h3>
+<button ng-click="_3d.emitEvent('myEvent', '3D')">Emit 3d event</button>
+<button ng-click="_3d.broadcastEvent('myEvent', '3D')">Broadcast 3d event</button>
+<pre>Count: {* _3d.count *}, Who: {* _3d.who *}</pre>
