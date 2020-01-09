@@ -21,8 +21,10 @@ Route::view('/', 'index/index');
 
 Route::match(['post', 'delete'], '/uploading/file', 'UploadingController@file');
 Route::view('/fileUploading', 'fileUploading');
+Route::view('/webSocket', 'webSocket');
 
 /*
 Route::get('/kyo/test', 'KyoController@test');
 Route::post('/kyo/test', 'KyoController@test');
+Route::match(['get', 'post'], '/kyo/test', 'KyoController@test');
 */
