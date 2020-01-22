@@ -20,8 +20,13 @@ Route::get('/', function () {
 Route::view('/', 'index/index');
 
 Route::match(['post', 'delete'], '/uploading/file', 'UploadingController@file');
+Route::match(['get', 'post'], '/kyo/cors', 'KyoController@cors');
+Route::match(['get', 'post'], '/kyo/session', 'KyoController@session');
+Route::get('/kyo/jsonp', 'KyoController@jsonp');
+
 Route::view('/fileUploading', 'fileUploading');
 Route::view('/webSocket', 'webSocket');
+Route::view('/crossDomainRequest', 'crossDomainRequest');
 
 /*
 Route::get('/kyo/test', 'KyoController@test');
