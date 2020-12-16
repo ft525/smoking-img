@@ -18,7 +18,7 @@
 				<form>
 					<div class="form-group">
 						<label for="websocket-url">WebSocket URL</label>
-						<input type="text" class="form-control" name="websocket_url" value="ws://ws.smoking.gov:10080" />
+						<input type="text" class="form-control" name="websocket_url" value="ws://ws.smoking.gov:11215" />
 					</div>
 
 					<div class="input-group mb-3">
@@ -83,22 +83,25 @@
 
 			function bindWsEvent(_ws) {
 				_ws.onopen = function (event) {
-					console.log("Opened.");
+					console.log("Opened.", event);
 				};
 
 				_ws.onmessage = function (event) {
-					console.log("Got message: " + event.data);
-					console.log(event);
+					console.log("Got message.", event);
 				};
 
 				_ws.onclose = function (event) {
-					console.log("Closed.");
+					console.log("Closed.", event);
 					ws = null;
 				};
 
 				_ws.onerror = function (event) {
-					console.log("Error.");
-					console.log(event);
+					console.log("Error." . event);
+				};
+
+				// 自訂事件 (TODO: 目前不知如何觸發)
+				_ws.onServerGotMessage = function (event) {
+					console.log("Server got message.", event);
 				};
 			}
 		});
