@@ -18,7 +18,7 @@
 				<form>
 					<div class="form-group">
 						<label for="websocket-url">WebSocket URL</label>
-						<input type="text" class="form-control" name="websocket_url" value="ws://ws.smoking.gov:11215" />
+						<input type="text" id="websocket-url" class="form-control" name="websocket_url" value="ws://ws.smoking.gov:11215" />
 					</div>
 
 					<div class="input-group mb-3">
