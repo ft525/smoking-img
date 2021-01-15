@@ -21,7 +21,9 @@ Route::view('/', 'index/index');
 
 Route::match(['post', 'delete'], '/uploading/file', 'UploadingController@file');
 Route::match(['get', 'post'], '/kyo/cors', 'KyoController@cors');
+Route::match(['get', 'post'], '/kyo/corsSimple', 'KyoController@corsSimple');
 Route::match(['get', 'post'], '/kyo/session', 'KyoController@session');
+Route::match(['get', 'post'], '/kyo/sessionSimple', 'KyoController@sessionSimple');
 Route::get('/kyo/jsonp', 'KyoController@jsonp');
 
 Route::view('/fileUploading', 'fileUploading');

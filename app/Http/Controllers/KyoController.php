@@ -49,6 +49,19 @@ class KyoController extends Controller
 			])->header('Access-Control-Allow-Origin', '*');
 	}
 
+	// CORS 簡單請求
+	public function corsSimple(Request $request)
+	{
+		// 將跨來源設定寫在 apache 或 nginx
+		return response()
+			->json([
+				'method' => $request->method(),
+				'name' => 'Kyo ' . rand(1, 3),
+				'age' => rand(18, 30),
+				'client_msg' => $request->input('client_msg'),
+			]);
+	}
+
 	public function jsonp(Request $request)
 	{
 		return response()
@@ -80,32 +93,55 @@ class KyoController extends Controller
 			'all' => $session->all(),
 		]);
 
-		$allowed_origins = [
-			'http://img.smoking.gov:10080',
-		];
-		if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+		$allowed_origin_pattern = '/\.(smoking\.gov|i7di\.local)$/';
+		if (isset($_SERVER['HTTP_ORIGIN']) && preg_match($allowed_origin_pattern, $_SERVER['HTTP_ORIGIN'])) {
 			$res
 				/*
-					簡單跨域請求 (允許的來源)
+					允許跨來源請求 (Cross-origin)
 
-					When request's credentials mode is 'include', 該值就不能設為 '*'
+						若 client 要傳送包含身份驗證的請求，Access-Control-Allow-Origin 就不能設為 '*'，必須是明確的值
+						也必須回應 Access-Control-Allow-Credentials: true 標頭
+						Cookie 的 SameSite 屬性要設為 none，還要有 Secure 屬性 (僅透過 https 傳送)
 				*/
 				->header('Access-Control-Allow-Origin', $_SERVER['HTTP_ORIGIN'])
+				/*
+					包含身分驗證的請求 (允許 client 傳送 cookie 或 HTTP Authentication，前端需要配合調整
+						例: $.ajax({xhrFields: {withCredentials: true}});
+
+					參考: https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/withCredentials)
+				*/
+				->header('Access-Control-Allow-Credentials', 'true');
 				/* 指定允許的 HTTP methods (簡單請求僅允許 GET, HEAD, POST)
 				->header('Access-Control-Allow-Methods', 'DELETE, OPTIONS, PUT')
 				*/
 				/* 指定允許的 Headers (有自訂的表頭需設定)
 				->header('Access-Control-Allow-Headers', 'X-Custom-Header')
 				*/
-				/*
-					身分驗證請求 (允許來源傳送子網域的 cookies, 前端需要配合調整, 參考: https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/withCredentials)
-
-					例: $.ajax({xhrFields: {withCredentials: true}});
-				*/
-				->header('Access-Control-Allow-Credentials', 'true');
 		}
 
 		return $res;
+	}
+
+	// Session 簡單請求
+	public function sessionSimple(Request $request)
+	{
+		$session = $request->session();
+
+		$client_msg = $request->input('client_msg');
+		if ($client_msg) {
+			$session->put('client', [
+				'time' => date('Y-m-d H:i:s'),
+				'msg' => $client_msg,
+			]);
+		}
+
+		// 將跨來源設定寫在 apache 或 nginx
+		return response()->json([
+			'action' => $client_msg ? 'Set session' : 'Get session',
+			'data' => $client_msg ? '' : $session->get('client'),
+			'session_id' => $session->getId(),
+			'all' => $session->all(),
+		]);
 	}
 
 }
