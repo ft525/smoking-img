@@ -54,8 +54,8 @@
 
 	// Controllers
 	app.controller("BodyCtrl", BodyCtrl);
-	BodyCtrl.$inject = ["$scope", "$route", "$routeParams", "$location"];
-	function BodyCtrl($scope, $route, $routeParams, $location) {
+	BodyCtrl.$inject = ["$scope", "$route", "$routeParams", "$location", "BASE_URI"];
+	function BodyCtrl($scope, $route, $routeParams, $location, BASE_URI) {
 
 		// View Model
 		var vm = this;
@@ -68,6 +68,23 @@
 		vm.$location = $location;
 
 		vm.isActive = isActive;
+
+		// ngView 轉場特效
+		vm.ng_view_animation_effects = [
+			{no:"1", value:"slide", label:"Slide"},
+			{no:"2", value:"slidedown", label:"Slidedown"},
+			{no:"3", value:"slideup", label:"Slideup"},
+			{no:"4", value:"pop", label:"Pop in/out"},
+			{no:"5", value:"fade", label:"Fade in/out"},
+			{no:"6", value:"flip", label:"Flip"},
+			{no:"7", value:"rotate", label:"Rotate"},
+			{no:"8", value:"slide-pop", label:"Slide + Pop in"}
+		];
+		vm.changeEffect = function () {
+			$("#effect-css").attr("href", BASE_URI + "/css/effects/" + vm.effect + ".css");
+		};
+		// 預設值
+		vm.effect = "slide-pop";
 
 		// 有點耗資源
 		function isActive(path) {

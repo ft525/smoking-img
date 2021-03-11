@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>H5 Nav bar</title>
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-		<link rel="stylesheet" href="{{ asset('css/ng-view-animations.css') }}" />
+		<link id="effect-css" rel="stylesheet" href="{{ asset('css/effects/slide-pop.css') }}" />
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script>
@@ -19,7 +19,17 @@
 			<li><a href="#!/lotto/FourD" ng-class="{active: body.isActive('/lotto/FourD')}">4 星彩</a></li>
 		</ul>
 
-		<div class="slide-pop" ng-view></div>
+		{{-- ngView 轉場效果 --}}
+		<select
+			ng-model="body.effect"
+			ng-options="v.value as (v.no + ': ' + v.label) for v in body.ng_view_animation_effects"
+			ng-change="body.changeEffect()"></select>
+		<pre>body.effect = {* body.effect | json *}</pre>
+
+		<pre>$location.path() = {* body.$location.path() *}</pre>
+		<pre>$route.current.templateUrl = {* body.$route.current.templateUrl *}</pre>
+		<pre>$route.current.params = {* body.$route.current.params *}</pre>
+		<pre>$routeParams = {* body.$routeParams *}</pre>
 
 		<hr />
 		<h3>body</h3>
@@ -28,17 +38,15 @@
 			<li>body.val: {* body.val *}</li>
 		</ul>
 
-		<hr />
-		<pre>$location.path() = {* body.$location.path() *}</pre>
-		<pre>$route.current.templateUrl = {* body.$route.current.templateUrl *}</pre>
-		<pre>$route.current.params = {* body.$route.current.params *}</pre>
-		<pre>$routeParams = {* body.$routeParams *}</pre>
-
-		<hr />
 		<h3>Event</h3>
 		<button ng-click="body.emitEvent('myEvent', 'Body')">Emit body event</button>
 		<button ng-click="body.broadcastEvent('myEvent', 'Body')">Broadcast body event</button>
 		<pre>Count: {* body.count *}, Who: {* body.who *}</pre>
+
+		<hr />
+		<div class="content">
+			<div ng-class="body.effect" ng-view></div>
+		</div>
 
 
 
@@ -48,7 +56,8 @@
 		<script>
 		$(function () {
 			{{-- Angular - Setting --}}
-			angular.module("myApp");
+			angular.module("myApp")
+				.constant("BASE_URI", "{{ url('/') }}");
 
 			angular.bootstrap(document, ["myApp"], {
 				strictDi: true
