@@ -16,7 +16,6 @@ use SwooleTW\Http\Websocket\Facades\Websocket;
 Websocket::on('connect', function ($websocket, Request $request) {
 	// called while socket on connect
 	$websocket->emit('message', 'Welcome ~');
-	$websocket->emit('serverGotMessage', 'Server got message !!');
 });
 
 Websocket::on('disconnect', function ($websocket) {
@@ -30,8 +29,6 @@ Websocket::on('example', function ($websocket, $data) {
 	$websocket->emit('message', $data);
 });
 
-
-// TODO: 目前不知如何觸發此事件
 Websocket::on('message', function ($websocket, $data) {
-	$websocket->emit('serverGotMessage', 'Server got message !!');
+	$websocket->emit('serverGotMessage', "Data: {$data}");
 });

@@ -29,6 +29,7 @@ Route::get('/kyo/jsonp', 'KyoController@jsonp');
 Route::view('/fileUploading', 'fileUploading');
 Route::view('/webSocket', 'webSocket');
 Route::view('/socketIo', 'socketIo');
+Route::view('/socketIoV2', 'socketIoV2');
 Route::view('/crossDomainRequest', 'crossDomainRequest');
 
 /*
