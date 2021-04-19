@@ -63,8 +63,8 @@
 
 				// 建立新連線
 				socket = new io(f.websocket_url.value, {
-					path: "",
-					transports: ["websocket"],
+					//path: "",
+					transports: ["websocket"],	// ["polling", "websocket"] 預設會先使用 polling，調整成只用 websocket
 					reconnection: false
 				});
 				bindSocketEvent(socket);
@@ -92,6 +92,7 @@
 			function bindSocketEvent(_socket) {
 				_socket.on("connect", function () {
 					console.log("Connected.");
+					_socket.emit("userLoggedIn", "已登入.");
 				});
 
 				_socket.on("disconnect", function (reason) {

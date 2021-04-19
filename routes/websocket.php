@@ -25,8 +25,8 @@ Websocket::on('disconnect', function ($websocket) {
 	*/
 });
 
-Websocket::on('example', function ($websocket, $data) {
-	$websocket->emit('message', $data);
+Websocket::on('userLoggedIn', function ($websocket, $data) {
+	$websocket->emit('message', 'userLoggedIn: ' . $data);
 });
 
 Websocket::on('message', function ($websocket, $data) {
